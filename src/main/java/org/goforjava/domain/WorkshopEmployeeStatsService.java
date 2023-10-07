@@ -2,10 +2,8 @@ package org.goforjava.domain;
 
 import org.goforjava.db.DB;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 public class WorkshopEmployeeStatsService implements EmployeeStatsService{
 
@@ -19,7 +17,14 @@ public class WorkshopEmployeeStatsService implements EmployeeStatsService{
 
     @Override
     public List<Employee> findEmployeesOlderThen(long years) {
-        return List.of();
+        List<Employee> findEmployee = employeeDB.findAll();
+        List<Employee> employeesOlder = new ArrayList<>();
+        for (Employee employee : findEmployee) {
+        if (LocalDate.now().getYear() - employee.getBirthDate().getYear() >= years) {
+                employeesOlder.add(employee);
+            }
+        }
+        return employeesOlder;
     }
 
     @Override
@@ -33,7 +38,7 @@ public class WorkshopEmployeeStatsService implements EmployeeStatsService{
     }
 
     @Override
-    public List<Employee> findEmployeesBasedIn(Localtion localtion) {
+    public List<Employee> findEmployeesBasedIn(Location location) {
         return List.of();
     }
 
@@ -43,7 +48,7 @@ public class WorkshopEmployeeStatsService implements EmployeeStatsService{
     }
 
     @Override
-    public Map<Localtion, Long> countEmployeesByLocation() {
+    public Map<Location, Long> countEmployeesByLocation() {
         return Map.of();
     }
 }
